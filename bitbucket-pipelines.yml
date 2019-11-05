@@ -1,0 +1,21 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+
+image: maven:3.3.9
+
+
+pipelines:
+  branches:
+    uat:
+      - step:
+          caches:
+            - maven
+          script: # Modify the commands below to build your repository.
+            - mvn clean package -DskipTests
+            - echo "Let's go in to our war location and initialize there with git"
+            - apt-get update # Now run the FTP bash script to deploy war file to UAT env
+            - apt-get install ncftp
+            - ncftpput -v -u "$FTP_USERNAME" -p "$FTP_PASSWORD" -R $FTP_HOST $FTP_SITE_ROOT target/*.war
+            - echo Finished uploading war file to $FTP_HOST$FTP_SITE_ROOT
