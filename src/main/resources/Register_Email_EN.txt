@@ -165,7 +165,7 @@ ul li, ol li {
 <br>
 <p>Hello #name,<br><p>
 <br>
-<p>Welcome To Medinosys<br><br>
+<p>Welcome To Springboot<br><br>
 
 Login Credentials :<br><br>
  
@@ -173,7 +173,7 @@ Email: <b> #email </b>  <br>
 Activation Code:<b> #activationCode </b> <br><br>
 
 Regards,<br>
-Medinosys support team.
+Springboot support team.
 </p>
 <br><br>
 

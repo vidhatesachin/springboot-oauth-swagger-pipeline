@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.medinosys.api</groupId>
-	<artifactId>medinosys.api</artifactId>
+	<groupId>com.springboot.api</groupId>
+	<artifactId>springboot.api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Medinosys API</name>
+	<name>Springboot API</name>
 	<url>http://maven.apache.org</url>
 	<packaging>war</packaging>
-	<description>Medinosys API</description>
+	<description>Springboot API</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
