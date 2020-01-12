@@ -84,4 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		defaultTokenServices.setSupportRefreshToken(true);
 		return defaultTokenServices;
 	}
+	
+	@Bean
+	public static Oauth2ClientPasswordEncoder passwordEncoder() {
+		return (Oauth2ClientPasswordEncoder) Oauth2ClientPasswordEncoder.getInstance();
+	}
 }
