@@ -1,8 +1,14 @@
 package com.springboot.api.controller;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +29,7 @@ import com.springboot.api.exception.ResourceConflictException;
 import com.springboot.api.exception.ResourceNotFoundException;
 import com.springboot.api.repository.UserRepository;
 import com.springboot.api.util.CommonUtils;
-import com.springboot.api.util.SecretEncoder;
+import com.springboot.api.util.SecurityUtil;
 import com.springboot.api.vo.UserVO;
 
 import io.swagger.annotations.Api;
@@ -38,7 +44,7 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private SecretEncoder cryptoLibrary;
+	private SecurityUtil secUtils;
 	
 	@PostMapping(value = "/api/v1/user/signup")
 	@Transactional
@@ -69,7 +75,13 @@ public class UserController {
 		
 		User user=new User();
 		BeanUtils.copyProperties(userVO, user);
-		user.setPassword(this.cryptoLibrary.encrypt(userVO.getPassword()));
+		try {
+			user.setPassword(this.secUtils.encryptPass(userVO.getPassword()));
+		} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException
+				| NoSuchPaddingException | InvalidAlgorithmParameterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.userRepository.save(user);
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 		
